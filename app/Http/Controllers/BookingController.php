@@ -75,4 +75,17 @@ class BookingController extends Controller
             'booking' => $booking
         ], 200);
     }
+
+
+    public function myBookings(Request $request)
+    {
+        $userEmail = $request->user()->email;
+
+        $bookings = Booking::with('tour')
+            ->where('email', $userEmail)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($bookings);
+    }
 }

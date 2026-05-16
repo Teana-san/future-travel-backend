@@ -6,23 +6,17 @@ use App\Http\Controllers\TourController;
 use App\Http\Controllers\BookingController;
 
 
-/* Route::post('/login', [AuthController::class, 'login']);
-Route::resource('tours', TourController::class);
-Route::get('/fechas', [TourController::class, 'allDates']);
-Route::resource('/bookings', BookingController::class); */
-
-
-
-
 // RUTAS PARA CLIENTES
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/tours', [TourController::class, 'index']);
 Route::get('/tours/{id}', [TourController::class, 'show']);
-Route::post('/bookings', [BookingController::class, 'store']); // Клиент может создать бронь
+Route::post('/bookings', [BookingController::class, 'store']);
 Route::get('/fechas', [TourController::class, 'allDates']);
 
 // RUTAS PROTEGIDAS SOLO PARA ADMIN
 Route::middleware('auth:sanctum')->group(function () {
+    
+    Route::get('/my-bookings', [BookingController::class, 'myBookings']);
     
     // TOURS
     Route::post('/tours', [TourController::class, 'store']);
