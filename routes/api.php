@@ -16,8 +16,14 @@ Route::get('/fechas', [TourController::class, 'allDates']);
 // RUTAS PROTEGIDAS SOLO PARA ADMIN
 Route::middleware('auth:sanctum')->group(function () {
     
+    // RESERVAS DEL USUARIO EN PERFIL
     Route::get('/my-bookings', [BookingController::class, 'myBookings']);
-    
+
+    // CONFIGURACION DEL USUARIO EN PERFIL
+    Route::get('/user', function (\Illuminate\Http\Request $request) {
+        return $request->user();
+    });
+
     // TOURS
     Route::post('/tours', [TourController::class, 'store']);
     Route::put('/tours/{id}', [TourController::class, 'update']);
