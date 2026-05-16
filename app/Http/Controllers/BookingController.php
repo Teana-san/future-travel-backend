@@ -19,8 +19,8 @@ class BookingController extends Controller
     {
         $validated = $request->validate([
             'tour_id' => 'required|exists:tours,id',
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
+            'nombre' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
+            'apellido' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
             'email' => 'required|email',
             'telefono' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:20',
             'adultos' => 'required|integer|min:1|max:2',
@@ -29,8 +29,8 @@ class BookingController extends Controller
             'precio_total' => 'required|numeric',
             'tipo_cama' => 'nullable|string|max:50',
             'cama_extra' => 'nullable|boolean',
-            'nombre2' => 'nullable|string|max:255',
-            'apellido2' => 'nullable|string|max:255',
+            'nombre2' => 'nullable|regex:/^[\pL\s\-]+$/u|max:255',
+            'apellido2' => 'nullable|regex:/^[\pL\s\-]+$/u|max:255',
         ]);
 
         $booking = Booking::create($validated);
@@ -52,8 +52,8 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($id);
 
         $validated = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
+            'nombre' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
+            'apellido' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
             'email' => 'required|email',
             'telefono' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:20',
             'adultos' => 'required|integer|min:1|max:2',
@@ -62,8 +62,8 @@ class BookingController extends Controller
             'precio_total' => 'required|numeric',
             'tipo_cama' => 'nullable|string|max:50',
             'cama_extra' => 'nullable|boolean',
-            'nombre2' => 'required_if:adultos,2|nullable|string|max:255',
-            'apellido2' => 'required_if:adultos,2|nullable|string|max:255',
+            'nombre2' => 'required_if:adultos,2|nullable|regex:/^[\pL\s\-]+$/u|max:255',
+            'apellido2' => 'required_if:adultos,2|nullable|regex:/^[\pL\s\-]+$/u|max:255',
         ]);
 
         $data = $validated;
